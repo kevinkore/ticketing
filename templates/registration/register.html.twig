@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>{% block title %}Register{% endblock %}</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <!-- Tempusdominus Bootstrap 4 -->
+        <link rel="stylesheet" href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
+        <!-- Ionicons -->
+        <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+        <!-- Theme style -->
+        <link rel="stylesheet" href="{{ asset('css/adminlte.min.css') }}">
+        <!-- iCheck -->
+        <link rel="stylesheet" href="{{ asset('plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+        <!-- Google Font -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+    </head>
+    <body class="hold-transition register-page">
+    
+        <div class="register-box ">
+            <div class="card card-outline card-danger">
+                <div class="card-header text-center">
+                    <a href="{{path('app_login')}}">
+                        <img src="https://www.veone.net/wp-content/uploads/2019/01/logo_accueil.png" alt="logo">
+                    </a>
+                </div>
+                {% block body %}
+                <div class="col-md-lg-3"></div>
+                <div class="col-md-lg-6">
+                    <div class="bg-light py-4 px-4 ">
+                            
+                            {% for flashError in app.flashes('verify_email_error') %}
+                                <div class="alert alert-danger" role="alert">votre email n'est pas valide, Veuillez entrer un email valide </div>
+                            {% endfor %}
+
+
+                            <h5 class="login-box-msg">Enregistrer une nouvelle adhésion</h5>
+                                
+                        {{ form_start(registrationForm) }}
+                            {{form_row(registrationForm.lastname)}}
+                            {{form_row(registrationForm.firstname)}}
+                            {{form_row(registrationForm.telephone)}}
+                            {{ form_row(registrationForm.email) }}
+                            {{ form_row(registrationForm.society) }}
+                            {{ form_row(registrationForm.plainPassword,
+                                {
+                                    label: 'Mot de pass',
+                                    placeholder: 'Entrez votre mot de passe'
+                                })
+                            }}
+                            {{ form_row(registrationForm.agreeTerms,
+                                {
+                                        label: 'J\'accepte les conditions'
+                                }
+                            )}}
+                            <p><a class="text-blue" href="{{path('app_login')}}">J'ai déja un compte</a></p>
+
+                            <button type="submit" class="btn btn-success mb-3">Enregistrer</button>
+                        {{ form_end(registrationForm) }} 
+                    </div>
+                </div>
+            
+                {% endblock %}
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

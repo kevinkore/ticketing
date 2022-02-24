@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Message{% endblock %}
+{% block mon %}
+    <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item menu-open">
+            <a href="{{path('home')}}" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{path('home')}}" class="nav-link">
+              <i class="nav-icon fas fa-home"></i>
+              <p>
+                Acceuil
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{path('history')}}" class="nav-link">
+                <i class="nav-icon fas fa-history"></i>
+                <p>
+                historique
+                <span class="right badge badge-danger">New</span>
+                </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{path('modify_information')}}" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                vos information
+              </p>
+            </a>
+          </li>
+          <li class="nav-item fixed-bottom">
+            <a href="{{path('app_logout')}}"  class="nav-link display-bottom">
+              <i class="nav-icon fas fa-sign-out-alt"></i>
+              <p>
+                deconnexion
+              </p>
+            </a>
+          </li>
+        </ul>
+    </nav>
+{% endblock %}
+{% block body %}
+    {% for success in app.flashes("success") %}
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        {{success}}
+        <button type="button" class ="btn-class" data-bs-dismissible="alert">
+        </div>
+    {% endfor %}
+    <div class="content-wrapper p-5">
+        <div class="container">
+            <div class="card ">
+                <div class="card-body">
+            
+                     {{ form_start(Form) }}
+                            {{form_row(Form.lastname)}}
+                            {{form_row(Form.firstname)}}
+                            {{form_row(Form.telephone)}}
+                            {{ form_row(Form.email) }}
+                            {{ form_row(Form.society) }}
+
+                            <button type="submit" class="btn btn-success mb-3">Enregistrer</button>
+                        {{ form_end(Form) }} 
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,142 @@
+{% extends "base.html.twig" %}
+{% block mon %}
+    <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item menu-open">
+            <a href="{{path('admin')}}" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{path('admin')}}" class="nav-link">
+              <i class="nav-icon fas fa-home"></i>
+              <p>
+                Acceuil
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{path('pending')}}" class="nav-link">
+                <i class="nav-icon fas fa-concierge-bell"></i>
+                <p>
+                attentes
+                <span class="right badge badge-danger">New</span>
+                </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{path('home')}}" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                vos information
+              </p>
+            </a>
+          </li>
+          <li class="nav-item fixed-bottom">
+            <a href="{{path('app_logout')}}"  class="nav-link display-bottom">
+              <i class="nav-icon fas fa-sign-out-alt"></i>
+              <p>
+                deconnexion
+              </p>
+            </a>
+          </li>
+        </ul>
+    </nav>
+{% endblock %}
+{% block body %}
+<body>
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">Dashboard</h1>
+            </div><!-- /.col -->
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                <li class="breadcrumb-item"><a href="#">Home</a></li>
+                </ol>
+            </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+        </div>
+        <!-- /.content-header -->
+
+        <!-- Main content -->
+        <section class="content">
+        <div class="container-fluid">
+            <!-- Small boxes (Stat box) -->
+            <div class="row">
+            <div class="col-lg-4 col-6">
+                <!-- small box -->
+                <div class="small-box bg-danger">
+                <div class="inner">
+                    <h3>{{tickets|length}}</h3>
+
+                    <h4>Tickets en attentes</h4>
+                </div>
+                <div class="icon">
+                    
+                </div>
+                <a href="#" class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-4 col-6">
+                <!-- small box -->
+                <div class="small-box bg-info">
+                <div class="inner">
+                    <h3>3</h3>
+
+                    <h4>Tickets resolus</h4>
+                </div>
+                <div class="icon">
+                    
+                </div>
+                <a href="#" class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            <div class="col-lg-4 col-6">
+                <!-- small box -->
+                <div class="small-box bg-warning">
+                <div class="inner">
+                    <h3>mon compte</h3>
+
+                    <p>compte user</p>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-person"></i>
+                </div>
+                <a href="#" class="small-box-footer">plus d'info <i class="fas fa-arrow-circle-right"></i></a>
+                </div>
+            </div>
+            <!-- ./col -->
+            </div>
+            <!-- jumbotron -->
+            <div class="jumbotron bg-cyan mt-4">
+                <h1 class="display-4">bonjour Mr {{user.firstname}} {{user.lastname}}</h1>
+                <p class="lead">vous devez avoir certainement plusieurs tickets en atentes aux quels vous devez repondre dans les brefs delais</p>
+                <hr class="my-4">
+                <p>pour repondres a ceux-ci vous devez consulter la liste des tickets en attentes ici</p>
+                <p class="lead">
+                    <center><a class="btn btn-default mt-3 btn-lg" href="{{path('pending')}}" role="button">listes des tickets en attentes</a></center>
+                </p>
+            </div>
+            <!-- /jumbotron -->
+        </div><!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+</body>
+</html>
+{% endblock %}

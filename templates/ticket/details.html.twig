@@ -1,0 +1,106 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ticket_details{% endblock %}
+{% block mon %}
+    <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item menu-open">
+            <a href="{{path('home')}}" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{path('home')}}" class="nav-link">
+              <i class="nav-icon fas fa-home"></i>
+              <p>
+                Acceuil
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{path('history')}}" class="nav-link">
+                <i class="nav-icon fas fa-history"></i>
+                <p>
+                historique
+                <span class="right badge badge-danger">New</span>
+                </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{path('modify_information')}}" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                vos information
+              </p>
+            </a>
+          </li>
+          <li class="nav-item fixed-bottom">
+            <a href="{{path('app_logout')}}"  class="nav-link display-bottom">
+              <i class="nav-icon fas fa-sign-out-alt"></i>
+              <p>
+                deconnexion
+              </p>
+            </a>
+          </li>
+        </ul>
+    </nav>
+{% endblock %}
+{% block body %}
+    <div class="content-wrapper p-5">
+        <div class="container">
+            <div class="card ">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="form-group col-md-6 ">
+                            <label for="inputObject"><strong>Object :</strong></label>
+                            <input type="text" value="{{ ticket.object }}" name="text" id="inputObject" class="form-control" autocomplete="text" disabled="disabled">
+                            <label for="inputDate"><strong>Date d'ouverture :</strong></label>
+                            <input type="text" value="{{ticket.OpenDate|date("d/m/Y")}}" name="text" id="inputDate" class="form-control" autocomplete="text" disabled="disabled">
+                            <label for="inputMessage"><strong>Message :</strong></label>
+                            <input type="text" value="{{ ticket.subject }}" name="text" id="inputMessage" class="form-control" autocomplete="text" disabled="disabled">
+                        </div>
+                        <div class="form-group col-md-6 ">
+                            <label for="inputDate"><strong>Etat :</strong></label>
+                            {% if ticket.ticketState %}
+                            <input type="text" name="text" id="inputDate" class="form-control" autocomplete="text" disabled="disabled" placeholder="ouvert">
+                            {% else %}
+                            <input type="text" value="{{ ticket.ticketState }}" name="text" id="inputDate" class="form-control" autocomplete="text" disabled="disabled" placeholder="fermer">
+                            {% endif %}
+                            <label for="inputDate"><strong>Date de cloture :</strong></label>
+                            {% if ticket.ticketState %}
+                                <input type="text" value="" name="text" id="inputDate" class="form-control" autocomplete="text" disabled="disabled">
+                            {% else %}
+                                <input type="text" value="{{ ticket.closingDate|date("d/m/Y")}}" name="text" id="inputDate" class="form-control" autocomplete="text" disabled="disabled">
+                            {% endif %}
+                            {% if ticket.ticketState %}
+                            <a href="{{ path('closing',{'id':ticket.id}) }}" class="mt-4 btn btn-lg btn-danger float-right" type="submit">Fermer</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-10">
+                    {{ form_start(form) }}
+                    {{form_row(form.topic)}}
+                    
+                </div>
+                <div class="col-md-2  mt-5">
+                    <button type="submit" class="btn btn-lg btn-primary float-left">Envoyer</button>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+            <div class="card mt-3">
+                {% for message in ticket.messages %}
+                    <div class="card-body">{{(message.author).firstname}}<span class="float-right">{{message.date|date("d/m/Y")}}</span> <input type="text" value="{{message.topic}}" class="form-control" disabled="disabled"></div>
+                {% endfor %}
+                
+            </div> 
+        </div>
+    </div>
+{% endblock %}

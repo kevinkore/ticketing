@@ -1,0 +1,126 @@
+{% extends "base.html.twig" %}
+{% block title %}Attentes{% endblock %}
+{% block mon %}
+<nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item menu-open">
+            <a href="{{path('admin')}}" class="nav-link active">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>
+                Dashboard
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{path('admin')}}" class="nav-link">
+              <i class="nav-icon fas fa-home"></i>
+              <p>
+                Acceuil
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{path('pending')}}" class="nav-link">
+                <i class="nav-icon fas fa-concierge-bell"></i>
+                <p>
+                attentes
+                <span class="right badge badge-danger">New</span>
+                </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{path('home')}}" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>
+                vos information
+              </p>
+            </a>
+          </li>
+          <li class="nav-item fixed-bottom">
+            <a href="{{path('app_adminlogout')}}"  class="nav-link display-bottom">
+              <i class="nav-icon fas fa-sign-out-alt"></i>
+              <p>
+                deconnexion
+              </p>
+            </a>
+          </li>
+        </ul>
+    </nav>
+{% endblock %}
+{% block body %}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1><strong>Liste des Tickets Ouvert</strong></h1>
+            </div>
+            </div>
+        </div><!-- /.container-fluid -->
+        </section>
+
+        <!-- Main content -->
+        <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+            <div class="col-12">
+                <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">Liste des Tickets</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    <table id="example2" class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Sujet</th>
+                        <th>Client</th>
+                        <th>Etats</th>
+                        <th><center>Action</center></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for ticket in tickets %}
+                    <tr>
+                        <td>{{ticket.openDate|date("d/m/Y")}}</td>
+                        <td>{{ticket.object}}</td>
+                        <td>{{(ticket.author).getEmail}}</td>
+                        <td>
+                            {% if ticket.ticketState  %}
+                                Ouvert
+                            {% else %}
+                                Fermer
+                            {% endif %}
+                        <td> 
+                            <center>
+                                <a href="{{ path('message',{'id':ticket.id}) }}" class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="detalis"><i class="fas fa-info-circle"></i></a>
+                                {% if ticket.ticketState %}
+                                    <a href="{{ path('closing',{'id':ticket.id}) }}" class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="fermer le ticket"><i class="fas fa-times-circle"></i></a>
+                                {% endif %}
+                            </center>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                    </tfoot>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+                </div>
+                <!-- /.card -->
+            </div>
+            <!-- /.col -->
+            </div>
+            <!-- /.row -->
+        </div>
+        <!-- /.container-fluid -->
+        </section>
+        <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+
+{% endblock %}
